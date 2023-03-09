@@ -13,9 +13,9 @@ const PORT = config.get('port') ?? 8080
 app.use(cors())
 app.use(express.json()) // СЕРВЕР будет понимать данные с клиента в формате JSON
 
-// app.get('/', (req, res) => {
-//     res.json({message: 'All is fine gggggg'})
-//   })
+app.get('/', (req, res) => {
+    res.json({message: 'All is fine gggggg'})
+  })
 
 // Routes
 // http://localhost:8080
