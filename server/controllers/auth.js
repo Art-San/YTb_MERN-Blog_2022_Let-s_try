@@ -1,6 +1,8 @@
 import User from '../models/User.js'
 import bcrypt from 'bcryptjs'
-// 56$41
+import jwt from 'jsonwebtoken'
+import config from 'config'
+// 1:13:33
 
 //Register user
 export const register = async (req, res) => {
@@ -47,7 +49,37 @@ export const register = async (req, res) => {
 //Login user
 export const login = async (req, res) => {
     try {
-        const {  }
+        const { username, password } = req.body
+        const user = await User.findOne({ username })
+        
+
+        if(!user) {
+            return res.json({
+                message: 'Такого юзера не существует'
+            })
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password)
+        if(!isPasswordCorrect) {
+            return res.json({
+                message: 'Неверный пароль'
+            })
+        }
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+            }, 
+            config.get('accessSecret'), 
+            { expiresIn: '30d' }
+        )
+
+        res.json({
+            token,
+            user,
+            message: `Добро пожаловать ${user.username}`
+        })
+
     } catch (error) {
         res.json({
             message: 'Ошибка при авторизации'
