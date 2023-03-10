@@ -7,7 +7,8 @@ export const checkAuth = (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.varify(token, config.get('refreshSecret'))
-
+            console.log('decoded', decoded)
+            console.log('decoded', decoded)
             req.userId = decoded.id
 
             next()

@@ -90,10 +90,28 @@ export const login = async (req, res) => {
 // Get me
 export const getMe = async (req, res) => {
     try {
-        
-    } catch (error) {
+        const user = await User.findById(req.userId)
+
+        if(!user) {
+            return res.json({
+                message: 'Такого юзера не существует'
+            })
+        }
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+            }, 
+            config.get('accessSecret'), 
+            { expiresIn: '30d' }
+        )
         res.json({
-            message: 'Ошибка при созданни пользователя'
-          })
+            user,
+            token
+        })
+
+
+    } catch (error) {
+        res.json({message: 'Нет доступа'})
     }
 }

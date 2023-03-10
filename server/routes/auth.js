@@ -15,7 +15,7 @@ router.post('/login', login)
 
 // Get Me
 // http://localhost:8080/api/auth/me
-router.get('/me',checkAuth , getMe)
+router.get('/me', checkAuth, getMe)
 
 
 export default router
