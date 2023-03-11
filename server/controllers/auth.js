@@ -31,9 +31,18 @@ export const register = async (req, res) => {
             password: hash
         })
 
+        const token = jwt.sign(
+            {
+                id: newUser._id,
+            }, 
+            config.get('accessSecret'), 
+            { expiresIn: '30d' }
+        )
+
         await newUser.save()
 
         res.json({
+            token,
             newUser,
             message: 'Регистрация прошла успешно'
         })

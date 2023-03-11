@@ -34,7 +34,7 @@ export const LoginPage = () => {
           <Link
             to={'/register'}
             className='flex justify-center items-center text-xs text-white'
-          >Нет аккаунта</Link>
+          >Нет аккаунта?</Link>
         </div>
 
       

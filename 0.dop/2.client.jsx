@@ -48,3 +48,16 @@ export default function App() {
       </h1>
     )
   }
+-------------------------------------------------------------------
+
+7. Reduxjs/toolkit
+
+После того как сделали роуты,  страницу регистрации и аторизации
+ставим 
+
+npm install @reduxjs/toolkit
+npm install react-redux
+
+8. axios для запросов
+
+npm install axios
