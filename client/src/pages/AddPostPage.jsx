@@ -2,6 +2,6 @@ import React from 'react'
 
 export const AddPostPage = () => {
   return (
-    <div>AddPostPage</div>
+    <div className=' text-white'>AddPostPage</div>
   )
 }

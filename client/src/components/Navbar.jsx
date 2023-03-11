@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
+
 
 export const Navbar = () => {
   return (
@@ -7,17 +9,33 @@ export const Navbar = () => {
 
         <ul className="flex gap-8">
             <li>
-                <a href="/" className='text-xs text-gray-400 hover:text-white'>Главня 1:37:38</a>
+                <NavLink
+                    to={'/'}
+                    href="/"
+                    className='text-xs text-gray-100 hover:text-white'
+                >
+                    Главня
+                </NavLink>
             </li>
             <li>
-                <a href="/" className='text-xs text-gray-400 hover:text-white'>Мои посты</a>
+                <NavLink
+                    to={'/posts'}
+                    href="/" className='text-xs text-gray-100 hover:text-white'
+                >
+                    Мои посты
+                </NavLink>
             </li>
             <li>
-            <a href="/" className='text-xs text-gray-400 hover:text-white'>Добавит пост</a>
+                <NavLink
+                    to={'/new'}
+                    href="/" className='text-xs text-gray-100 hover:text-white'
+                >
+                    Добавит пост
+                </NavLink>
             </li>
         </ul>
 
-        <div className='flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm px-4 '>
+        <div className='flex justify-center items-center bg-gray-600 text-xs text-white rounded-sm px-4 py-2'>
             <button>Войти</button>
         </div>
     </div>

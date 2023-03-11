@@ -2,6 +2,6 @@ import React from 'react'
 
 export const PostsPage = () => {
   return (
-    <div>PostsPage</div>
+    <div className=' text-white'>PostsPage</div>
   )
 }

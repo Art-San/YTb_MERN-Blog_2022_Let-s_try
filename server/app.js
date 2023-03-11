@@ -21,6 +21,12 @@ app.get('/', (req, res) => {
 // http://localhost:8080
 app.use('/api/auth', authRoute)
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('Production')
+} else {
+  console.log(chalk.white('Development'))
+}
+
 async function start() {
     try {
         await mongoose.connect(config.get('mongoUri'))
