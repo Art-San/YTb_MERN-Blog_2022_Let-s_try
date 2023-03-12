@@ -61,3 +61,6 @@ npm install react-redux
 8. axios для запросов
 
 npm install axios
+
+9. toastify для уведомлений
+npm i react-toastify

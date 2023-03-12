@@ -1,18 +1,16 @@
-
-
 export const links = [
     {
-        name: "Главная",
+        name: 'Главная',
         path: '/'
     },
     {
-        name: "Мои посты",
+        name: 'Мои посты',
         path: '/posts'
     },
     {
-        name: "Добавить пост",
+        name: 'Добавить пост',
         path: '/new'
-    },
+    }
     // {
     //     name: "Plans",
     //     path: '/plans'
