@@ -1,39 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { registerUser } from '../redux/features/auth/authSlice'
-import TextField from '../components/common/form/TextField'
 
 export const RegistPage = () => {
-  const [data, setData] = useState({
-    username: '',
-    password: '',
-})
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
 
-const handleChange = (target) => {
-  console.log('target', target)
-  setData((prevState) => ({
-      ...prevState,
-      [target.name]: target.value
-  }))
-}
-
-
-
-
-  // const [username, setUsername] = useState('')
-  // const [password, setPassword] = useState('')
-  // const dispatch = useDispatch()
-
-  const handleSubmit = (e) => {
-      e.preventDefault()
-      console.log('khonnh', data.username)
-      console.log('khonnh', data.password)
-    
-      
+  const handleSubmit = () => {
     try {
       dispatch(registerUser({ username, password }))
-            
+      setPassword('')
+      setUsername('')
     } catch (error) {
       console.log(error)
     }
@@ -41,30 +20,11 @@ const handleChange = (target) => {
   return (
     <>
       <form 
-        onSubmit={handleSubmit}
+        onSubmit={e => e.preventDefault()}
         className='w-1/4 h-60 mx-auto mt-40'
 
       >
-          <TextField
-              header='Регистрация'
-              label="UserName"
-              type="text"
-              name='username'
-              value={data.username}
-              onChange={handleChange}
-              placeholder='Введите имя'
-          />
-
-          <TextField
-              label="Пароль"
-              type="password"
-              name='password'
-              value={data.password}
-              onChange={handleChange}
-              placeholder='Введите пароль'
-          />
-        
-        {/* <h1 className=' text-lg text-white text-center'>Регистрация</h1>
+        <h1 className=' text-lg text-white text-center'>Регистрация</h1>
         <label className=' text-xs text-gray-400'>
           UserName:
           <input 
@@ -84,7 +44,7 @@ const handleChange = (target) => {
             placeholder='Password'
             className=' mt-1 text-black w-full rounded-lg bg-gray-400 border py-1 px-2 text-base outline-none placeholder:text-white ' 
           />
-        </label> */}
+        </label>
         <div className='flex gap-8 justify-center mt-4'>
           <button
             type='submit'
