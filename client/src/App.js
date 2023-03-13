@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Layout } from './components/Layout'
 import { Routes, Route } from 'react-router-dom'
 import { MainPage } from './pages/MainPage'
@@ -9,8 +9,17 @@ import RegistPage from './pages/RegistPage'
 import { LoginPage } from './pages/LoginPage'
 import { EditPostPage } from './pages/EditPostPage'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useDispatch } from 'react-redux'
+import { getMe } from './redux/features/auth/authSlice'
 
 function App() {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getMe())
+    }, [])
+
     return (
         <Layout>
             <Routes>
@@ -22,7 +31,7 @@ function App() {
                 <Route path="register" element={<RegistPage />} />
                 <Route path="login" element={<LoginPage />} />
             </Routes>
-            <ToastContainer position=" bottom-right" />
+            <ToastContainer position="bottom-right" />
         </Layout>
     )
 }

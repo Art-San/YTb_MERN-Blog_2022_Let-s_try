@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../redux/features/auth/authSlice'
+import { checkIsAuth, registerUser } from '../redux/features/auth/authSlice'
 import TextField from '../components/common/form/TextField'
 import { toast } from 'react-toastify'
 
 const RegistPage = () => {
     const [data, setData] = useState({ username: '', password: '' })
     const { status } = useSelector((state) => state.auth)
-    console.log('status', status)
+    const isAuth = useSelector(checkIsAuth)
+    // console.log('status', status)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleChange = (target) => {
-        console.log('target', target)
+        // console.log('target', target)
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
@@ -23,7 +25,8 @@ const RegistPage = () => {
         if (status) {
             toast(status)
         }
-    }, [status, '2:26'])
+        if (isAuth) navigate('/')
+    }, [status, isAuth, navigate])
 
     const handleSubmit = (e) => {
         e.preventDefault()
