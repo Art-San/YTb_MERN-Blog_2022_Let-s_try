@@ -104,7 +104,7 @@ export const authSlice = createSlice({
             state.status = action.payload.message
             state.isLoading = false
         }
-        // Authorization check
+        // Authorization check 2:43:00
 
         // [getMe.pending]: (state) => {
         //     state.isLoading = true
