@@ -21,3 +21,6 @@ nodemon - // автомотически перезапускае сервер
 отслеживает изменения бэкенда в реальном времени
 
 4. в package.json добавили "type": "module",
+
+5. Express-fileupload экспресс-загрузка файлов
+npm i express-fileupload

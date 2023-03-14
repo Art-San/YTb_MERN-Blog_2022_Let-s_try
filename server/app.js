@@ -4,22 +4,26 @@ import chalk from 'chalk'
 import config from 'config'
 import cors from 'cors'
 import authRoute from './routes/auth.js'
-
+import postRoute from './routes/posts.js'
+import fileupload from 'express-fileupload'
 
 const app = express()
 const PORT = config.get('port') ?? 8080
 
 // Middleware - некая функция которая расширяет или дополняет базовые настройки express
 app.use(cors())
+app.use(fileupload()) // для загрузки картинок
 app.use(express.json()) // СЕРВЕР будет понимать данные с клиента в формате JSON
+app.use(express.static('uploads'))
 
-app.get('/', (req, res) => {
-    res.json({message: 'All is fine gggggg'})
-  })
+// app.get('/', (req, res) => {
+//     res.json({message: 'All is fine gggggg'})
+//   })
 
 // Routes
 // http://localhost:8080
 app.use('/api/auth', authRoute)
+app.use('/api/posts', postRoute)
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Production')

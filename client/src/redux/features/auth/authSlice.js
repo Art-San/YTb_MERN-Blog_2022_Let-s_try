@@ -85,7 +85,7 @@ export const authSlice = createSlice({
             state.token = action.payload.token
         },
         [registerUser.rejected]: (state, action) => {
-            console.log('registerUser.rejected', action)
+            // console.log('registerUser.rejected', action)
             state.status = action.payload.message
             state.isLoading = false
         },
@@ -95,7 +95,7 @@ export const authSlice = createSlice({
             state.status = null
         },
         [loginUser.fulfilled]: (state, action) => {
-            console.log('loginUser.fulfilled', action)
+            // console.log('loginUser.fulfilled', action)
             state.status = action.payload.message
             state.user = action.payload.user
             state.token = action.payload.token
@@ -103,24 +103,24 @@ export const authSlice = createSlice({
         [loginUser.rejected]: (state, action) => {
             state.status = action.payload.message
             state.isLoading = false
-        }
+        },
         // Authorization check 2:43:00
 
-        // [getMe.pending]: (state) => {
-        //     state.isLoading = true
-        //     state.status = null
-        // },
-        // [getMe.fulfilled]: (state, action) => {
-        //     console.log('getMe.fulfilled', action)
-        //     state.isLoading = false
-        //     state.status = null // changed null to this action.payload.message
-        //     state.user = action.payload?.user
-        //     state.token = action.payload?.token
-        // },
-        // [getMe.rejected]: (state, action) => {
-        //     state.status = action.payload.message
-        //     state.isLoading = false
-        // }
+        [getMe.pending]: (state) => {
+            state.isLoading = true
+            state.status = null
+        },
+        [getMe.fulfilled]: (state, action) => {
+            // console.log('getMe.fulfilled', action)
+            state.isLoading = false
+            state.status = null // changed null to this action.payload.message
+            state.user = action.payload?.user
+            state.token = action.payload?.token
+        },
+        [getMe.rejected]: (state, action) => {
+            state.status = action.payload.message
+            state.isLoading = false
+        }
     }
 })
 
