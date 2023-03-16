@@ -2,6 +2,7 @@ import Post from '../models/Post.js'
 import User from '../models/User.js'
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
+import chalk from 'chalk'
 
 
 // // Create Post
@@ -93,6 +94,8 @@ export const getMyPosts = async (req, res) => {
     }
 }
 
+
+
 // Remove Post
 export const removePost = async (req, res) => {
     try {
@@ -100,11 +103,39 @@ export const removePost = async (req, res) => {
         if (!post) return res.json({message: 'Такого поста не существует'})
 
         await User.findByIdAndUpdate(req.userId, {
-            $pull: { post: req.params.id }
+            $pull: { posts: req.params.id }
         })
+        
         res.json({ message: 'Пост был удален'})
     } catch (error) {
         res.json({ massage: 'При удаление поста что-то пошло не так..'})
     }
 }
+
+// updatePost
+export const updatePost = async (req, res) => {
+    try {
+        const { title, text, id } = req.body
+        const post = await Post.findById(id)
+
+        if (req.files) {
+            let fileName = String(Date.now()) + req.files.image.name
+            const __dirname = dirname(fileURLToPath(import.meta.url))
+            req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName))
+            post.imgUrl = fileName || ''
+        }
+
+        post.title = title
+        post.text = text
+
+        await post.save()
+
+        res.json(post)
+    } catch (error) {
+        res.json({ message: 'Что-то пошло не так.' })
+    }
+}
+
+
+
 

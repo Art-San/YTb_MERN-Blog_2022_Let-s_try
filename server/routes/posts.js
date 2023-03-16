@@ -5,7 +5,8 @@ import {
     getAll,
     getById,
     getMyPosts,
-    removePost
+    removePost,
+    updatePost
 } from '../controllers/posts.js'
 
 const router = new Router()
@@ -24,15 +25,20 @@ router.get('/', getAll)
 
 router.get('/:id', getById)
 
+// Update Post
+// http://localhost:8080/api/posts/:id
+
+router.put('/:id',checkAuth, updatePost)
+
 //Get MY posts
 // http://localhost:8080/api/posts/user/me
 
-router.get('/user/me',checkAuth, getMyPosts)
+router.get('/user/me', checkAuth, getMyPosts)
 
 //Remove Post
 // http://localhost:8080/api/posts/:id
 
-router.delete('/:id',checkAuth, removePost)
+router.delete('/:id', checkAuth, removePost)
 
 
 

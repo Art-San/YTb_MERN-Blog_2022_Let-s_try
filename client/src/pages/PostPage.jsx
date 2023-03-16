@@ -1,26 +1,43 @@
 import axios from '../utils/axios'
 import React, { useCallback, useState, useEffect } from 'react'
-import { AiFillEye, AiOutlineMessage } from 'react-icons/ai'
+import { AiFillEye, AiOutlineMessage, AiTwotoneEdit, AiFillDelete } from 'react-icons/ai'
 // import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { removePost } from '../redux/features/post/postSlice'
+import { toast } from 'react-toastify'
 
 // 04:34:16
 
 export const PostPage = () => {
     const [post, setPost] = useState(null)
-    // console.log('post', post)
+    console.log('post', post)
     const params = useParams()
-    console.log('params', params)
+    const dispatch = useDispatch()
+    const { user } = useSelector(state => state.auth)
+    const navigate = useNavigate()
+    // console.log('params._id', params.id)
+
+    const removePostHandler = () => {
+        try {
+            dispatch(removePost(params.id))
+            toast('Пост был удален')
+            navigate('/posts')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const fetchPost = useCallback(async () => {
         const { data } = await axios.get(`/posts/${params.id}`)
-        console.log('data', data)
+        // console.log('data', data)
         setPost(data)
     }, [params.id])
 
     useEffect(() => {
         fetchPost()
-    }, [])
+    }, [fetchPost])
 
     if (!post) {
         return (
@@ -81,6 +98,25 @@ export const PostPage = () => {
                                 <span>{post.comments?.length || 0}</span>
                             </button>
                         </div>
+
+                        {
+                            user?._id === post.author && (
+                                <div className=" flex gap-3 mt-4">
+                                    <button className=' flex items-center justify-center gap-2 text-base text-white opacity-50'>
+                                        <Link to={`/${params.id}/edit`}>
+                                            <AiTwotoneEdit />
+                                        </Link>
+                                    </button>
+                                    <button
+                                        onClick={removePostHandler}
+                                        className=' flex items-center justify-center gap-2 text-base text-white opacity-50'
+                                    >
+                                        <AiFillDelete/>{' '}
+                                    </button>
+                                </div>
+                            )
+
+                        }
                     </div>
                 </div>
                 <div className="w-1/3">COMMENTS</div>
