@@ -9,7 +9,7 @@ const Postitem = ({ post }) => {
     if (!post) {
         return (
             <div className="text-xl text-center text-white">
-                Постов не существует
+                Загрузка...
             </div>
         )
     }
@@ -57,7 +57,7 @@ const Postitem = ({ post }) => {
 }
 
 Postitem.propTypes = {
-    post: PropTypes.array
+    post: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 }
 
 export default Postitem

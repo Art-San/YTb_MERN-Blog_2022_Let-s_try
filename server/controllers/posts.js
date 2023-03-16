@@ -47,7 +47,7 @@ export const createPost = async (req, res) => {
         res.json(newPostWithoutImage)
     } catch (error) {
         console.log(error)
-        res.json({ message: 'Что то пошло не так'})
+        res.json({ message: 'При создание поста Что то пошло не так'})
     }
 }
 
@@ -63,7 +63,7 @@ export const getAll = async (req, res) => {
         }
         res.json({ posts, popualrPosts })
     } catch (error) {
-        res.json({ massage: 'Что-то пошло не так..'})
+        res.json({ massage: 'При получение всех постов чтото пошло не так..'})
     }
 
 }
@@ -78,48 +78,33 @@ export const getById = async (req, res) => {
         res.json({ massage: 'Что-то пошло не так..'})
     }
 }
+// Get my posts
+export const getMyPosts = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId)
+        const list = await Promise.all(
+            user.posts.map(post => {
+                return Post.findById(post._id)
+            })
+        )
+        res.json(list)
+    } catch (error) {
+        res.json({ massage: 'При получение моих постов что то пошло не так..'})
+    }
+}
 
-// // Create Post
-// export const createPost = async (req, res) => {
-//     try {
-//         const { title, text } = req.body
-//         const user = await User.findById(req.userId)
+// Remove Post
+export const removePost = async (req, res) => {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.id)
+        if (!post) return res.json({message: 'Такого поста не существует'})
 
-//         if (req.files) {
-//             let fileName = Date.now().toString() + req.files.image.name
-//             const __dirname = dirname(fileURLToPath(import.meta.url))
-//             req.files.image.mv(path.join(__dirname, '..', 'uploads', fileName))
-
-//             const newPostWithImage = new Post({
-//                 username: user.username,
-//                 title,
-//                 text,
-//                 imgUrl: fileName,
-//                 author: req.userId,
-//             })
-
-//             await newPostWithImage.save()
-//             await User.findByIdAndUpdate(req.userId, {
-//                 $push: { posts: newPostWithImage },
-//             })
-
-//             return res.json(newPostWithImage)
-//         }
-
-//         const newPostWithoutImage = new Post({
-//             username: user.username,
-//             title,
-//             text,
-//             imgUrl: '',
-//             author: req.userId,
-//         })
-//         await newPostWithoutImage.save()
-//         await User.findByIdAndUpdate(req.userId, {
-//             $push: { posts: newPostWithoutImage },
-//         })
-//         res.json(newPostWithoutImage)
-//     } catch (error) {
-//         res.json({ message: 'Что-то пошло не так.' })
-//     }
-// }
+        await User.findByIdAndUpdate(req.userId, {
+            $pull: { post: req.params.id }
+        })
+        res.json({ message: 'Пост был удален'})
+    } catch (error) {
+        res.json({ massage: 'При удаление поста что-то пошло не так..'})
+    }
+}
 

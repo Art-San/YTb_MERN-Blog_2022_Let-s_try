@@ -4,7 +4,8 @@ import { AiFillEye, AiOutlineMessage } from 'react-icons/ai'
 // import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { Link, useParams } from 'react-router-dom'
-// 04:12:48
+
+// 04:34:16
 
 export const PostPage = () => {
     const [post, setPost] = useState(null)
@@ -24,7 +25,7 @@ export const PostPage = () => {
     if (!post) {
         return (
             <div className="text-xl text-center text-white">
-                Постов не существует
+                Загрузка...
             </div>
         )
     }
@@ -70,14 +71,16 @@ export const PostPage = () => {
                         {post.text}
                     </p>
 
-                    <div className='flex gap-3 mt-2 items-center'>
-                        <button className=' flex items-center justify-center gap-2 text-xs text-white opacity-50'>
-                            <AiFillEye/> <span>{post.views}</span>
-                        </button>
-                        <button className=' flex items-center justify-center gap-2 text-xs text-white opacity-50'>
-                            <AiOutlineMessage/>{' '}
-                            <span>{post.comments?.length || 0}</span>
-                        </button>
+                    <div className='flex gap-3 mt-2 items-center justify-between'>
+                        <div className=" flex gap-3 mt-4">
+                            <button className=' flex items-center justify-center gap-2 text-xs text-white opacity-50'>
+                                <AiFillEye/> <span>{post.views}</span>
+                            </button>
+                            <button className=' flex items-center justify-center gap-2 text-xs text-white opacity-50'>
+                                <AiOutlineMessage/>{' '}
+                                <span>{post.comments?.length || 0}</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="w-1/3">COMMENTS</div>
