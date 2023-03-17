@@ -26,13 +26,9 @@ export const PostsPage = () => {
     }
 
     return (
-        // <div className=" w-1/2 mx-auto py-10 flex-col gap-10">
-        //     {posts?.map((post, index) => <Postitem key={index} post={post}/>)}
-        // </div>
-        <div className='w-1/2 mx-auto py-10 flex flex-col gap-10'>
-            {posts?.map((post, idx) => (
-                <Postitem post={post} key={idx} />
-            ))}
+        <div className=" w-1/2 mx-auto py-10 flex-col gap-10">
+            {posts?.map((post, index) => <Postitem key={index} post={post}/>)}
         </div>
+
     )
 }
