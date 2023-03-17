@@ -7,7 +7,7 @@ export const PostsPage = () => {
     console.log('posts', posts)
     const fetchMyPosts = async () => {
         try {
-            const { data } = await axios.get(`/posts/user/me`)
+            const { data } = await axios.get('/posts/user/me')
             setPosts(data)
         } catch (error) {
             console.log(error)
@@ -26,8 +26,13 @@ export const PostsPage = () => {
     }
 
     return (
-        <div className=" w-1/2 mx-auto py-10 flex-col gap-10">
-            {posts?.map((post, index) => <Postitem key={index} post={post}/>)}
+        // <div className=" w-1/2 mx-auto py-10 flex-col gap-10">
+        //     {posts?.map((post, index) => <Postitem key={index} post={post}/>)}
+        // </div>
+        <div className='w-1/2 mx-auto py-10 flex flex-col gap-10'>
+            {posts?.map((post, idx) => (
+                <Postitem post={post} key={idx} />
+            ))}
         </div>
     )
 }

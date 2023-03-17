@@ -3,10 +3,11 @@ import mongoose from 'mongoose'
 import chalk from 'chalk'
 import config from 'config'
 import cors from 'cors'
-import authRoute from './routes/auth.js'
-import postRoute from './routes/posts.js'
 import fileupload from 'express-fileupload'
 
+import authRoute from './routes/auth.js'
+import postRoute from './routes/posts.js'
+import commentRoute from './routes/comments.js'
 const app = express()
 const PORT = config.get('port') ?? 8080
 
@@ -24,6 +25,7 @@ app.use(express.static('uploads'))
 // http://localhost:8080
 app.use('/api/auth', authRoute)
 app.use('/api/posts', postRoute)
+app.use('/api/comments', commentRoute)
 
 if (process.env.NODE_ENV === 'production') {
   console.log('Production')

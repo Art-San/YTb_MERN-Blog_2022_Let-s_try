@@ -6,7 +6,8 @@ import {
     getById,
     getMyPosts,
     removePost,
-    updatePost
+    updatePost,
+    getPostComments
 } from '../controllers/posts.js'
 
 const router = new Router()
@@ -39,6 +40,10 @@ router.get('/user/me', checkAuth, getMyPosts)
 // http://localhost:8080/api/posts/:id
 
 router.delete('/:id', checkAuth, removePost)
+
+// Get Post Comments
+// http://localhost:8080/api/posts/comments/:id
+router.get('/comments/:id', getPostComments)
 
 
 
